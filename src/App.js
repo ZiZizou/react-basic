@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
+const App = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the default route of the Flask server
+        const response = await fetch('http://35.182.97.128/');
+        const result = await response.text();
+
+        // Update the state with the fetched data
+        setData(result);
+
+        // Log the fetched data to the console
+        console.log('Fetched Data:', result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Call the fetchData function when the component mounts
+    fetchData();
+  }, []); // The empty dependency array ensures that useEffect runs only once when the component mounts
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Flask Server Example</h1>
+      {data && (
+        <div>
+          <h2>Data from Flask Server:</h2>
+          <p>{data}</p>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
