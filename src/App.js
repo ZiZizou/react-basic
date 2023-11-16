@@ -7,7 +7,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the default route of the Flask server
-        const response = await fetch('http://35.182.97.128/');
+        const response = await fetch('https://scholarshipappplication.online/');
         const result = await response.text();
 
         // Update the state with the fetched data
